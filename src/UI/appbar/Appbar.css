@@ -1,0 +1,18 @@
+:root {
+  --nav-bg-hover: #234040;
+  --nav-bg: #4D8C8C;
+  --nav-text-hover: #D99F84;
+  --nav-text: white;
+  --nav-color-shadow: #1C3333;
+}
+
+.color-nav {
+    background-color: var(--nav-bg);
+    box-shadow: 0 10px 10px var(--nav-color-shadow);
+}
+
+.center {
+    width:auto;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}

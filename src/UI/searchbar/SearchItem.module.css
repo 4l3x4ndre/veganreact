@@ -1,0 +1,36 @@
+.header_inner {
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: rgb(233, 233, 233);
+    align-items: center;
+    position: relative;
+}
+
+/* .item {
+    background-color: rgb(25, 136, 127);
+    color:red;
+    width: 100%;
+    position: relative;
+    left: 0;
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+} */
+
+.text {
+    font-size: 15;
+    color: white;
+}
+
+.icon_box {
+    width: 40;
+    height: 40;
+    border-radius: 40;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5;
+    font-size: 20%;
+}

@@ -110,8 +110,6 @@ const styles = StyleSheet.create({
   },
   header_inner: {
     flex:1,
-    // marginTop: '20vh',
-    // overflow: 'hidden',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

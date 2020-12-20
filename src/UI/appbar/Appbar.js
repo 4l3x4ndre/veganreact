@@ -12,13 +12,13 @@ export default function Appbar(props) {
         <Navbar collapseOnSelect expand="lg" className="color-nav" fixed="top">
             
             <Container>
-            <Navbar.Brand href="#home">VEGAN RECIPE</Navbar.Brand>
+            <Navbar.Brand href="/home">VEGAN RECIPES</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse>
                 <Nav className="mr-auto">
-                    <Nav.Link href="#foo">Recipes</Nav.Link>
-                    <Nav.Link href="#bar">Smart search</Nav.Link>
-                    <Nav.Link href="#bar">Random recipe</Nav.Link>
+                    <Nav.Link href="/recipes">Recipes</Nav.Link>
+                    <Nav.Link href="/smart">Smart search</Nav.Link>
+                    <Nav.Link href="/random">Random recipe</Nav.Link>
                     {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="#action/1">action 1</NavDropdown.Item>
                         <NavDropdown.Item href="#action/2">action 2</NavDropdown.Item>
@@ -28,8 +28,8 @@ export default function Appbar(props) {
                     </NavDropdown> */}
                 </Nav>
                 <Nav>
-                    <Nav.Link href="#bar">Account</Nav.Link>
-                    <Nav.Link href="#bar">Who are we ?</Nav.Link>
+                    <Nav.Link href="/account">Account</Nav.Link>
+                    <Nav.Link href="/who">Who are we ?</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             

@@ -17,7 +17,7 @@ import SearchItemsContainer from './SearchItemsContainer'
 // const width = Dimensions.get('window').width
 // const height = Dimensions.get('window').height
 
-export const SearchBar = () => { 
+export const SearchBar = (props) => { 
 
   /**
    * Here stand the searchbar as well as the items written by the user.
@@ -46,6 +46,7 @@ export const SearchBar = () => {
     if (value === "" && !child) return
     await setListValues(newList)
     setValue("")
+    props.onListChanged(newList)
   }
 
   useEffect(() => {

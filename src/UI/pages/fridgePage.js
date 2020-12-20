@@ -19,9 +19,10 @@ class FridgePage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            listFoodstuffs: null,
-            baseUrl: 'https://api.spoonacular.com/recipes/',
+            listFoodstuffs: [],
             data: null,
+            baseUrl: 'https://api.spoonacular.com/recipes/findByIngredients',
+            maxRecipePerCall: 2,
             fetchError: null,
             fetchLoading: false
         }
@@ -38,18 +39,34 @@ class FridgePage extends React.Component {
             listFoodstuffs : newlist
         }, () => {
             // fetch data
-            this.fetchData('complexSearch', '&query=pasta&maxFat=25&number=2')
+            this.fetchData()
         })
     }
 
-    fetchData(search, query) {
-        if (this.state.fetchLoading) return 
+    urlGenerator() {
+        let url = this.state.baseUrl + '?apiKey=' + constants.APIKEY + '&ingredients='
+        
+        this.state.listFoodstuffs.forEach(element => {
+            url += element.toString()
+            if (element !== this.state.listFoodstuffs[this.state.listFoodstuffs.length - 1]) {
+                url += ',+'
+            }
+        })
+
+        url += '&number=' + this.state.maxRecipePerCall.toString()
+
+        return url
+    }
+
+    fetchData() {
+        if (this.state.fetchLoading || this.state.listFoodstuffs.length === 0) return 
+
+        let url = this.urlGenerator()
+        console.log('fetching from ' + url)
 
         this.setState({
             fetchLoading: true
         })
-
-        let url = this.state.baseUrl + search + '?apiKey=' + constants.APIKEY + query
 
         fetch(url)
             .then((response) => response.json())
@@ -57,7 +74,7 @@ class FridgePage extends React.Component {
                 this.setState({
                     data: data,
                     fetchLoading: false
-                }, () => console.log(this.state.data))
+                }, () => console.table(this.state.data))
             })
             .catch((e) => {
                 this.setState({

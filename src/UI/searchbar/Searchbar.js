@@ -33,7 +33,7 @@ export const SearchBar = (props) => {
   const [listValues, setListValues] = useState([])
   const input = useRef(null)
 
-  const updateListValues = async (newList, child) => {
+  const updateListValues = async (newList, fromChild) => {
 
     /** 
      * The idea here is to store the new list only if : 
@@ -41,9 +41,9 @@ export const SearchBar = (props) => {
      * - the new list was created by the UseEffect when the user typed something
     */
 
-    if (!update && !child) return
+    if (!update && !fromChild) return
     setUpdate(false)
-    if (value === "" && !child) return
+    if (value === "" && !fromChild) return
     await setListValues(newList)
     setValue("")
     props.onListChanged(newList)

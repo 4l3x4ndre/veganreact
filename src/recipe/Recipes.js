@@ -11,7 +11,8 @@ class Recipes extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            listFoodstuffs: []
+            listFoodstuffs: [],
+            firstItem: null
         }
     }
 
@@ -23,22 +24,24 @@ class Recipes extends React.Component {
 
     //     if (props.listFoodstuffs !== state.listFoodstuffs) {
     //         console.log(props.listFoodstuffs)
-    //         this.forceUpdate()
+    //         // this.forceUpdate()
     //         return {
-    //             listFoodstuffs: props.listFoodstuffs
+    //             listFoodstuffs: [...props.listFoodstuffs]
     //         }
     //     }
+    //     console.log("noooool")
     //     return null
     // }
 
 
     componentDidUpdate(prevProps) {
         if (prevProps.listFoodstuffs !== this.props.listFoodstuffs) {
-            
+            console.log(this.props.listFoodstuffs)
             this.setState({
                 listFoodstuffs: [...this.props.listFoodstuffs]
             }, () => {
                 console.log(this.state.listFoodstuffs)
+                this.forceUpdate()
             })
         }
     }
@@ -63,11 +66,20 @@ class Recipes extends React.Component {
 
     render() {
         return (
-            <div style={container}>
-                {this.props.listFoodstuffs.map((item, index) => (
-                <Recipe key={index} data={item} />
-                ))}
-            </div>
+            this.state.listFoodstuffs.map((item, index) => (
+                    <Recipe key={index} data={item} />
+                    ))
+            // <div>{this.state.listFoodstuffs}</div>
+            // <div style={container}>
+            //     {this.state.listFoodstuffs.length === 0 ? null:
+            //         <Recipe data={[...this.state.listFoodstuffs][0]} />
+            //     }
+            // </div>
+            // <div style={container}>
+            //     {this.state.listFoodstuffs.map((item, index) => (
+            //     <Recipe key={index} data={item} />
+            //     ))}
+            // </div>
             // <div>
             //     {this.state.listFoodstuffs.length === 0 ? 
             //         null :

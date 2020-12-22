@@ -9,6 +9,7 @@ import './App.css'
 import Appbar from './UI/appbar/Appbar'
 
 import FridgePage from './UI/pages/fridgePage'
+import TestPage from './UI/pages/testPage'
 
 
 function App() {
@@ -23,8 +24,11 @@ function App() {
         <header className='App-header'>
 
           <Switch>
-            <Route path="/home">
+            <Route path='/home'>
               <FridgePage />
+            </Route>
+            <Route path='/test'>
+              {/* <TestPage/> */}
             </Route>
           </Switch>
 

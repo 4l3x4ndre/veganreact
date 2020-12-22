@@ -18,15 +18,28 @@ class SearchItemsContainer extends React.Component {
       * updateListAction is used by the item when it's deleted.
       */
 
-    state = {
-        data: null,
-        oldProps: null,
-        updateListAction: null
-    }
-
     async loadData() { // TEST function
         return await ['a', 'b']
     }
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            data: null,
+            oldProps: null,
+            updateListAction: null
+        }
+    }
+
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.dada !== prevProps.data) {
+    //         // console.log(this.state.data)
+    //         // this.setState({
+    //         //     data: this.props.data,
+    //         //     updateListAction: this.props.updateListAction
+    //         // }, () => console.log(this.state.data))
+    //     }
+    // }
 
     static getDerivedStateFromProps(props, state) {
 
@@ -35,10 +48,10 @@ class SearchItemsContainer extends React.Component {
          * If the new list is different then update the container's list.
          */
 
-        if (props.data !== state.data && state.oldProps !== props.data) {
+        if (props.data !== state.data) {
             return {
                 data: props.data,
-                oldProps : props.data,
+                // oldProps : props.data,
                 updateListAction: props.updateListAction
             }
         }

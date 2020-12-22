@@ -42,23 +42,29 @@ export const SearchBar = (props) => {
     */
 
     if (!update && !fromChild) return
+
     setUpdate(false)
+
     if (value === "" && !fromChild) return
+
     await setListValues(newList)
+
     setValue("")
+    
     props.onListChanged(newList)
   }
 
   useEffect(() => {
     
     updateListValues([...listValues, value], false)
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [update])
 
   function onSearch() {
 
     /** 
-     * Set update to true to rerender 
+     * Set update to true to rerender .
      * */
 
     setUpdate(true)

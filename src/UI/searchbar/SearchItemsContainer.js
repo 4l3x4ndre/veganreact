@@ -1,9 +1,8 @@
-import React from 'react'
-import {Text} from 'react-native'
+import React, { useEffect, useState } from 'react'
 
 import SearchItem from './SearchItem'
 
-class SearchItemsContainer extends React.Component {
+const SearchItemsContainer = (props) => {
 
     /**
      * This component is the container for all of the items.
@@ -18,53 +17,19 @@ class SearchItemsContainer extends React.Component {
       * updateListAction is used by the item when it's deleted.
       */
 
-    async loadData() { // TEST function
-        return await ['a', 'b']
-    }
+    const [data, setData] = useState([])
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            data: null,
-            oldProps: null,
-            updateListAction: null
-        }
-    }
-
-    // componentDidUpdate(prevProps) {
-    //     if (this.props.dada !== prevProps.data) {
-    //         // console.log(this.state.data)
-    //         // this.setState({
-    //         //     data: this.props.data,
-    //         //     updateListAction: this.props.updateListAction
-    //         // }, () => console.log(this.state.data))
-    //     }
-    // }
-
-    static getDerivedStateFromProps(props, state) {
+    useEffect(() => {
 
         /**
-         * This react function is called by the SearchBar when its list of items changes.
-         * If the new list is different then update the container's list.
+         * Called by the parent : SearchBar.
+         * Change the data according to the new list of the SearchBar.
          */
 
-        if (props.data !== state.data) {
-            return {
-                data: props.data,
-                // oldProps : props.data,
-                updateListAction: props.updateListAction
-            }
-        }
-        return null
-    }
+        setData(props.data)
+    }, [props.data])
 
-    componentWillUnmount() { // TEST function
-      if (this._asyncRequest) {
-        this._asyncRequest.cancel();
-      }
-    }
-
-    deleteItem = (itemText) => {
+    const deleteItem = async (itemText) => {
 
         /**
          * This function is called by the item (as 'deleteAction').
@@ -74,59 +39,27 @@ class SearchItemsContainer extends React.Component {
          * update the SearchBar list as well.
          */
 
-        let copy = [...this.state.data]
+        let copy = [...data]
         let index = copy.indexOf(itemText)
         if (index !== -1) {
             copy.splice(index, 1)
-            this.setState({
-                data:copy
-            }, () => {
-                this.state.updateListAction(copy, true)
-            })
+            console.log(copy)
+            setData(copy)
+            props.updateListAction(copy, true)
         }
     }
-
-    itemList() {
-
-        /**
-         * Create a list of Item by mapping on the state.data array.
-         */
-        
-        return (
-            <div style={wrapper}>
-                {this.state.data.map((item, index) => (
-                <SearchItem key={index} text={item} deleteAction={this.deleteItem} />
-                ))}
-            </div>
-        )
-    }
-
-
-    renderItems () { //TEST function
-        return( 
-            <Text>{this.state.data[0]}</Text>
-        )
-    }
-
-    render() {
-
-        /**
-         * Because the state.data is automatically set when the component is created,
-         * the state.data should never be null
-         */
-
-        if (this.state.data === null) {
-            return <p>Loading...</p>
-        } else {
-            return this.itemList()
-        }
-    }
-
-
+    return (
+        <div style={wrapper}>
+            {data.map((item, index) => (
+            <SearchItem key={index} text={item} deleteAction={deleteItem} />
+            ))}
+        </div>
+    )
 
 }
 
 export default SearchItemsContainer
+
 const wrapper = {
     display: 'flex',
     flexWrap: 'wrap',

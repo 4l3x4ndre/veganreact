@@ -1,33 +1,18 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 const Recipe = (props) => {
+
+    /**
+     * Simple recipe component to display information about the recipe passed in props
+     */
 
     return(
         <div style={style}>
             <p>{props.data['title']}</p>
         </div>
     )
-    
+
 }
-
-// class Recipe extends React.Component {
-    
-//     constructor(props) {
-//         super(props)
-//         this.state = {
-//             data:props.data
-//         }
-//         console.log(this.state.data)
-//     }
-
-//     render() {
-//         return (
-//             <div style={style}>
-//                 <p>{this.state.data['title']}</p>
-//             </div>
-//         )
-//     }
-// }
 
 export default Recipe
 

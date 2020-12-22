@@ -2,9 +2,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route
-} from "react-router-dom"
+} from 'react-router-dom'
 
-import logo from './logo.svg'
 import './App.css'
 import Appbar from './UI/appbar/Appbar'
 
@@ -27,8 +26,12 @@ function App() {
             <Route path='/home'>
               <FridgePage />
             </Route>
+            
             <Route path='/test'>
-              {/* <TestPage/> */}
+              {/**
+               * This route isn't available from the UI.
+               */}
+              <TestPage/>
             </Route>
           </Switch>
 

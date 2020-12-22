@@ -2,11 +2,19 @@ import React, { useEffect, useState } from 'react'
 
 import Searchbar from '../searchbar/Searchbar'
 import Recipes from '../../recipe/Recipes'
+import RecipesContext from '../../recipe/RecipeContext'
 
 import constants from '../../API/constants.js'
 
 
 const FridgePage = () => {
+
+    /**
+     * This page is aimed to list recipes according to the ingredients referenced by the user.
+     * The ingredients (variale listFoodstuffs) is updated by Searchbar component.
+     * The results of the API (variable data) is updated by fetching the API.
+     */
+
     const [listFoodstuffs, setListFoodstuffs] = useState([])
     const [data, setData] = useState([])
     const baseUrl = 'https://api.spoonacular.com/recipes/findByIngredients'
@@ -15,8 +23,14 @@ const FridgePage = () => {
     const [fetchLoading, setFetchLoading] = useState(false)
 
     useEffect(() => {
+
+        /**
+         * Once the listFoodstufs has been udpated, call the API and show the new results.
+         */
+
         fetchData()
-        console.log(listFoodstuffs)
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [listFoodstuffs])
 
     async function updateListFoodstuffs(newlist) {
@@ -27,8 +41,6 @@ const FridgePage = () => {
          */
         
         await setListFoodstuffs([...newlist])
-        console.log(listFoodstuffs)
-        // fetchData()
     }
 
     function urlGenerator() {
@@ -58,7 +70,6 @@ const FridgePage = () => {
             .then((data) => {
                 setData(data)
                 setFetchLoading(false)
-                console.table(data)
             })
             .catch((e) => {
                 setFetchError(e)
@@ -73,7 +84,9 @@ const FridgePage = () => {
                 <Searchbar onListChanged={updateListFoodstuffs} />
             </div>
             
-            <Recipes listFoodstuffs={data}/>
+            <RecipesContext.Provider value={data}>
+                <Recipes/>
+            </RecipesContext.Provider>
         </div>
     )
 

@@ -1,13 +1,14 @@
 import React, {useState} from 'react'
 import {
   Text,
-  StyleSheet,
-  View,
   TouchableHighlight,
-  SafeAreaView
 } from 'react-native'
 
 const TestPage = () => {
+
+    /**
+     * JUST TESTING HERE, NOTHING INTERESTING
+     */
 
     const [value, setValue] = useState(0)
     const [value2, setValue2] = useState(0)

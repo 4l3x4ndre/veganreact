@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     Text,
     StyleSheet,
@@ -9,7 +9,7 @@ import {
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import * as Icons from "@fortawesome/fontawesome-free-solid"
 
-class SearchItem extends React.Component {
+const SearchItem = (props) => {
 
     /** 
      *  This is the item that whas been written by the user.
@@ -18,36 +18,24 @@ class SearchItem extends React.Component {
      *  that has been passed in props.
      */
 
-    state = {
-        text: null
-    }
-    
-    componentDidMount() {
-        this.setState({text:this.props.text})
-    }
-
-    render() {
-        if (this.state.text === null) {
-            return <Text></Text>
-        }
-        return (
-            <div>
+    return(
+        <div>
             <View style={_styles.header_inner}>
-                <Text style={_styles.text}>{this.props.text}</Text>
+                <Text style={_styles.text}>{props.text}</Text>
                 <TouchableHighlight
                     activeOpacity={1}
                     underlayColor={"#ccd0d5"}
                     onPress={() => {
-                        this.props.deleteAction(this.props.text)
+                        props.deleteAction(props.text)
                     }}
                     style={_styles.icon}
                 >
                     <FontAwesomeIcon icon={Icons.faTimesCircle} size="1x" />
                 </TouchableHighlight>
             </View>   
-            </div>
-        )
-    }
+        </div>
+    )
+
 }
 
 export default SearchItem

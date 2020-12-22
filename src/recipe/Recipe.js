@@ -1,10 +1,27 @@
 import React from 'react'
 
-export default function Recipe(props) {
-    return (
-        <div>
-        <h1>Title</h1>
-    <li>{props.title}</li>
-    </div>
-    )
+class Recipe extends React.Component {
+    
+    constructor(props) {
+        super(props)
+        this.state = {
+            data:props.data
+        }
+        console.log(this.state.data)
+    }
+
+    render() {
+        return (
+            <div style={style}>
+                <p>{this.state.data['title']}</p>
+            </div>
+        )
+    }
 }
+
+export default Recipe
+
+const style = {
+    margin: '50px'
+}
+

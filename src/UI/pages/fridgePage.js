@@ -20,7 +20,7 @@ class FridgePage extends React.Component {
         super(props)
         this.state = {
             listFoodstuffs: [],
-            data: null,
+            data: [],
             baseUrl: 'https://api.spoonacular.com/recipes/findByIngredients',
             maxRecipePerCall: 2,
             fetchError: null,
@@ -66,35 +66,35 @@ class FridgePage extends React.Component {
 
         this.setState({
             fetchLoading: true
+        }, () => {
+            fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    this.setState({
+                        data: data,
+                        fetchLoading: false
+                    }, () => console.table(this.state.data))
+                })
+                .catch((e) => {
+                    this.setState({
+                        fetchError: e,
+                        fetchLoading: false
+                    })
+                })
         })
 
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                this.setState({
-                    data: data,
-                    fetchLoading: false
-                }, () => console.table(this.state.data))
-            })
-            .catch((e) => {
-                this.setState({
-                    fetchError: e,
-                    fetchLoading: false
-                })
-            })
+        
     }
 
-    componentDidMount() {
-
-    }
 
     render() {
         return (
             <div>
-                <div className="top">
+                <div style={styleTop}>
                     <Searchbar onListChanged={this.updateListFoodstuffs.bind(this)} />
                 </div>
-                <Recipes/>
+                
+                    <Recipes listFoodstuffs={this.state.data}/>
             </div>
         )
     }
@@ -102,3 +102,9 @@ class FridgePage extends React.Component {
 }
 
 export default FridgePage
+
+const styleTop = {
+    marginTop: '20vh',
+    display: 'flex',
+    justifyContent: 'center',
+}

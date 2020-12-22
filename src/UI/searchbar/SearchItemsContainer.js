@@ -28,27 +28,6 @@ class SearchItemsContainer extends React.Component {
         return await ['a', 'b']
     }
 
-    componentDidMount() {
-
-        /**
-         * First initialisation of the state : data & update action (delete)
-         * Is it useless because of getDerivedStateFromProps ?
-         */
-
-        // this._asyncRequest = loadData().then(
-        //     data => {
-        //         this._asyncRequest = null
-        //         this.setState({data})
-        //     }
-        // )
-        if (this.state.data === null) {
-            this.setState({
-                data:this.props.data,
-                updateListAction: this.props.updateListAction
-            })
-        }
-    }
-
     static getDerivedStateFromProps(props, state) {
 
         /**
@@ -56,7 +35,7 @@ class SearchItemsContainer extends React.Component {
          * If the new list is different then update the container's list.
          */
 
-        if (props.data != state.data && state.oldProps !== props.data) {
+        if (props.data !== state.data && state.oldProps !== props.data) {
             return {
                 data: props.data,
                 oldProps : props.data,

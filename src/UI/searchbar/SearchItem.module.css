@@ -7,18 +7,6 @@
     position: relative;
 }
 
-/* .item {
-    background-color: rgb(25, 136, 127);
-    color:red;
-    width: 100%;
-    position: relative;
-    left: 0;
-    flex: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-} */
-
 .text {
     font-size: 15;
     color: white;

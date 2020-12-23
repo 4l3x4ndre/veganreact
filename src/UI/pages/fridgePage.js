@@ -6,6 +6,11 @@ import RecipesContext from '../../recipe/RecipeContext'
 
 import constants from '../../API/constants.js'
 
+const styleTop = {
+    marginTop: '20vh',
+    display: 'flex',
+    justifyContent: 'center',
+}
 
 const FridgePage = () => {
 
@@ -27,6 +32,24 @@ const FridgePage = () => {
         /**
          * Once the listFoodstufs has been udpated, call the API and show the new results.
          */
+        async function fetchData() {
+
+            let url = urlGenerator(baseUrl, constants.APIKEY, maxRecipePerCall, listFoodstuffs)
+            console.log('fetching from ' + url)
+
+            await setFetchLoading(true)
+            fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                    setData(data)
+                    setFetchLoading(false)
+                })
+                .catch((e) => {
+                    setFetchError(e)
+                    setFetchLoading(false)
+                })
+        }
+        if (fetchLoading || listFoodstuffs.length === 0) return
 
         fetchData()
 
@@ -41,41 +64,6 @@ const FridgePage = () => {
          */
         
         await setListFoodstuffs([...newlist])
-    }
-
-    function urlGenerator() {
-        let url = baseUrl + '?apiKey=' + constants.APIKEY + '&ingredients='
-        
-        listFoodstuffs.forEach(element => {
-            url += element.toString()
-            if (element !== listFoodstuffs[listFoodstuffs.length - 1]) {
-                url += ',+'
-            }
-        })
-
-        url += '&number=' + maxRecipePerCall.toString()
-
-        return url
-    }
-
-    async function fetchData() {
-        if (fetchLoading || listFoodstuffs.length === 0) return 
-
-        let url = urlGenerator()
-        console.log('fetching from ' + url)
-
-        await setFetchLoading(true)
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                setData(data)
-                setFetchLoading(false)
-            })
-            .catch((e) => {
-                setFetchError(e)
-                setFetchLoading(false)
-            })
-        
     }
 
     return (
@@ -95,8 +83,17 @@ const FridgePage = () => {
 
 export default FridgePage
 
-const styleTop = {
-    marginTop: '20vh',
-    display: 'flex',
-    justifyContent: 'center',
+function urlGenerator(baseUrl, key, maxRecipePerCall, listFoodstuffs) {
+    let url = baseUrl + '?apiKey=' + key + '&ingredients='
+    
+    listFoodstuffs.forEach(element => {
+        url += element.toString()
+        if (element !== listFoodstuffs[listFoodstuffs.length - 1]) {
+            url += ',+'
+        }
+    })
+
+    url += '&number=' + maxRecipePerCall.toString()
+
+    return url
 }

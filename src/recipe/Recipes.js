@@ -28,7 +28,7 @@ export default Recipes
 
 const container = {
     display: 'flex',
-    flexWrap: 'nowrap',
-    width: '80vw',
-    backgroundColor:'red'
+    flexWrap: 'wrap',
+    width: '95vw',
+    backgroundColor:'transparent'
 }

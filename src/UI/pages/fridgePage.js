@@ -6,8 +6,11 @@ import RecipesContext from '../../recipe/RecipeContext'
 
 import constants from '../../API/constants.js'
 
+import ApiReponsesExemple from '../../assets/data/apiResponseExemple.json'
+
 const styleTop = {
     marginTop: '20vh',
+    marginBottom: '5vh',
     display: 'flex',
     justifyContent: 'center',
 }
@@ -21,7 +24,7 @@ const FridgePage = () => {
      */
 
     const [listFoodstuffs, setListFoodstuffs] = useState([])
-    const [data, setData] = useState([])
+    const [data, setData] = useState(ApiReponsesExemple)
     const baseUrl = 'https://api.spoonacular.com/recipes/findByIngredients'
     const maxRecipePerCall = 2
     const [fetchError, setFetchError] = useState(null)
@@ -41,6 +44,8 @@ const FridgePage = () => {
             fetch(url)
                 .then((response) => response.json())
                 .then((data) => {
+                    console.table(data)
+                    console.log(data)
                     setData(data)
                     setFetchLoading(false)
                 })

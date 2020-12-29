@@ -15,7 +15,6 @@ const Recipe = (props) => {
     const [fetchLoading, setFetchLoading] = useState(false)
 
     const isRowBased = useMediaQuery('(max-width: 500px)')
-    const baseUrl = 'https://api.spoonacular.com/recipes/findByIngredients'
     const baseRecipeUrl = 'https://api.spoonacular.com/recipes/'
     const endRecipeUrl = '/information?includeNutrition=false'
 
@@ -31,9 +30,11 @@ const Recipe = (props) => {
                     setRecipeInfo(info)
                     setFetchLoading(false)
                 }
+                console.log(recipeInfo)
             })
     }
-
+    
+    //#region useEffect
     // useEffect(() => {
 
     //     async function fetchRecipeInformation(recipeId) {
@@ -53,6 +54,7 @@ const Recipe = (props) => {
 
     //     fetchRecipeInformation(props.data['id'])
     // }, [])
+    // #endregion 
 
     return(
         <View style={styles_dynamic.container(isRowBased)}>
@@ -61,7 +63,7 @@ const Recipe = (props) => {
                 <Text style={styles_dynamic.title(isRowBased)}>{props.data['title']}</Text>
             </View>
 
-            <img style={styles_dynamic.image} src={props.data['image']} />
+            <img style={styles_dynamic.image} src={props.data['image']} alt=''/>
 
             <View style={styles.ingredients}>
                 {props.data['usedIngredients'].map((item, index) => 
@@ -73,12 +75,17 @@ const Recipe = (props) => {
             </View>
             <View style={styles.buttonView}>
                 <TouchableOpacity style={styles.button}>
-                    <Button onPress={fetchRecipeInformation} title="See recipe" color="#A66A35" touchSoundDisabled={false}/>
+                    <Button 
+                        onPress={() => fetchRecipeInformation(props.data['id'])} 
+                        title="See recipe" 
+                        color="#A66A35" 
+                        touchSoundDisabled={false}
+                    />
                 </TouchableOpacity>
             </View>
             <View style={styles.ingredients}>
                 <Text>
-                    {recipeInfo === null || recipeInfo == [] ? 'nothing' : recipeInfo['vegetarian'].toString()}
+                    {recipeInfo === null ? 'nothing' : recipeInfo['vegetarian'].toString()}
                 </Text>
             </View>
 
@@ -138,7 +145,6 @@ const styles = StyleSheet.create({
         color:'white',
         fontSize:'1rem',
         backgroundColor: '#D9B9A7',
-        height: '1.5rem',
         margin: '10px',  
         borderRadius:'25px',
         width: 'fit-content',
@@ -152,7 +158,6 @@ const styles = StyleSheet.create({
         color:'white',
         fontSize:'1rem',
         backgroundColor: '#3C2F40',
-        height: '1.5rem',
         margin: '10px',  
         borderRadius:'25px',
         width: 'fit-content',

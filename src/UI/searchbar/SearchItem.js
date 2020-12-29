@@ -42,7 +42,7 @@ export default SearchItem
 
 const _styles = StyleSheet.create({
     text: {
-        fontSize: '.6em',
+        fontSize: '.9em',
         color:'black',
         fontWeight: 'bold',
         marginHorizontal: '5%',

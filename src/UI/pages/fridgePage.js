@@ -25,19 +25,22 @@ const FridgePage = () => {
 
     const [listFoodstuffs, setListFoodstuffs] = useState([])
     const [data, setData] = useState(ApiReponsesExemple)
-    const baseUrl = 'https://api.spoonacular.com/recipes/findByIngredients'
-    const maxRecipePerCall = 2
     const [fetchError, setFetchError] = useState(null)
     const [fetchLoading, setFetchLoading] = useState(false)
+    
+    const baseUrl = 'https://api.spoonacular.com/recipes/findByIngredients'
+    
+    const maxRecipePerCall = 2
 
     useEffect(() => {
 
         /**
          * Once the listFoodstufs has been udpated, call the API and show the new results.
          */
+
         async function fetchData() {
 
-            let url = urlGenerator(baseUrl, constants.APIKEY, maxRecipePerCall, listFoodstuffs)
+            let url = urlFoodListGenerator(baseUrl, constants.APIKEY, maxRecipePerCall, listFoodstuffs)
             console.log('fetching from ' + url)
 
             await setFetchLoading(true)
@@ -48,6 +51,7 @@ const FridgePage = () => {
                     console.log(data)
                     setData(data)
                     setFetchLoading(false)
+
                 })
                 .catch((e) => {
                     setFetchError(e)
@@ -88,7 +92,7 @@ const FridgePage = () => {
 
 export default FridgePage
 
-function urlGenerator(baseUrl, key, maxRecipePerCall, listFoodstuffs) {
+function urlFoodListGenerator(baseUrl, key, maxRecipePerCall, listFoodstuffs) {
     let url = baseUrl + '?apiKey=' + key + '&ingredients='
     
     listFoodstuffs.forEach(element => {
